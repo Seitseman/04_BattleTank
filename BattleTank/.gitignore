@@ -73,3 +73,6 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+#Started Content can be easily re-added by the engine itself
+Content/StarterContent
