@@ -3,6 +3,11 @@
 #include "TankPlayerController.h"
 #include "Templates/Casts.h"
 
+ATankPlayerController::ATankPlayerController()
+{
+    PrimaryActorTick.bCanEverTick = true;
+}
+
 ATank * ATankPlayerController::GetControlledTank() const
 {
     return Cast<ATank>(GetPawn());
@@ -24,3 +29,20 @@ void ATankPlayerController::BeginPlay()
 
     UE_LOG(LogTemp, Warning, TEXT("ATankPlayerController::BeginPlay"));
 }
+
+void ATankPlayerController::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    AimTowardsCrosshair();
+
+}
+
+void ATankPlayerController::AimTowardsCrosshair()
+{
+    if (!GetControlledTank())
+    {
+        return;
+    }
+
+}
+
