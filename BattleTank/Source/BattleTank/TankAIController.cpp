@@ -6,6 +6,11 @@
 #include "Templates/Casts.h"
 
 
+ATankAIController::ATankAIController()
+{
+    PrimaryActorTick.bCanEverTick = true;
+}
+
 void ATankAIController::BeginPlay()
 {
 
@@ -19,6 +24,16 @@ void ATankAIController::BeginPlay()
     else
     {
         UE_LOG(LogTemp, Warning, TEXT("AI has found player tank %s"), *PlayerTank->GetName());
+    }
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+    auto ThisTank = GetControlledTank();
+    auto PlayerTank = GetPlayerTank();
+    if (ThisTank && PlayerTank)
+    {
+        ThisTank->AimAt(PlayerTank->GetActorLocation());
     }
 }
 
