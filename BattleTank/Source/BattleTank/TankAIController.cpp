@@ -2,20 +2,36 @@
 
 #include "TankAIController.h"
 #include "GameFramework/Pawn.h"
+#include "GameFramework/PlayerController.h"
+#include "Templates/Casts.h"
 
 
 void ATankAIController::BeginPlay()
 {
 
     Super::BeginPlay();
-    APawn* PossessedPawn = GetPawn();
+    APawn* PlayerTank = GetPlayerTank();
 
-    if (!PossessedPawn)
+    if (!PlayerTank)
     {
-        UE_LOG(LogTemp, Warning, TEXT("AI  NOT possesing a tank"));
+        UE_LOG(LogTemp, Warning, TEXT("AI cannot find player tank"));
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("AI possesing a tank %s"), *PossessedPawn->GetName());
+        UE_LOG(LogTemp, Warning, TEXT("AI has found player tank %s"), *PlayerTank->GetName());
     }
+}
+
+ATank * ATankAIController::GetControlledTank() const
+{
+    return Cast<ATank>(GetPawn());
+}
+
+ATank * ATankAIController::GetPlayerTank() const
+{
+    if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
+    {
+        return Cast<ATank>(PlayerController->GetPawn());
+    }
+    return nullptr;
 }
