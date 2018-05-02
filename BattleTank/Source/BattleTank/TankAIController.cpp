@@ -29,6 +29,8 @@ void ATankAIController::BeginPlay()
 
 void ATankAIController::Tick(float DeltaTime)
 {
+    Super::Tick(DeltaTime);
+
     auto ThisTank = GetControlledTank();
     auto PlayerTank = GetPlayerTank();
     if (ThisTank && PlayerTank)
